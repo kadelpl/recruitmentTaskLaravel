@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostCurrencyController;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
 Route::get('/', function () {
-    return view('welcome');
+
+    if(isset($_GET['action']) && isset($_GET["id"])){
+        $message = \App\Models\Favourite::deleteCurrency($_GET["id"])? "Dodano": "Nie udało się dodać";
+    }
+
+    if(isset($_GET['action'])&& $_GET['action']=="deleteAll"){
+        \App\Models\Favourite::deleteAll();
+    }
+
+    $postCurrency =  new PostCurrencyController();
+    return $postCurrency->getViewCurrencyList();
+});
+
+
+
+Route::post('/', function () {
+    \App\Models\Favourite::addCurrency($_POST["currancy"]);
+
+    $postCurrency =  new PostCurrencyController();
+    return $postCurrency->getViewCurrencyList();
 });

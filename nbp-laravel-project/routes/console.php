@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostCurrencyController;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Artisan;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
+})->purpose('Display an inspiring quote');
+
+
+Artisan::command('getCurrencyList', function () {
+    $data = new PostCurrencyController;
+    $result = $data->getCurrencyList();
+    foreach ($result[0]["rates"] as $element){
+        echo $element["currency"]." - ".$element["code"]." - ". $element["mid"] ."\n";
+    }
 })->purpose('Display an inspiring quote');
