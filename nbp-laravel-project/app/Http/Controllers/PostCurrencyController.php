@@ -8,14 +8,17 @@ use Illuminate\Http\Request;
 
 class PostCurrencyController extends Controller
 {
-    public function getCurrencyList(){
+    public function getViewCurrencyList(){
 
-        $post = Http::get("https://api.nbp.pl/api/exchangerates/tables/A/?format=json");
-        $result = json_decode($post,true);
+        $result = $this->getCurrencyList();
 
         return view("currency",[
             "posts"=> $result[0]["rates"]
         ]);
     }
 
+    public function getCurrencyList(){
+        $post = Http::get("https://api.nbp.pl/api/exchangerates/tables/A/?format=json");
+        return json_decode($post,true);
+    }
 }

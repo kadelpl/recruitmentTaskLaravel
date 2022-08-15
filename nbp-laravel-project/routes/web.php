@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 Route::get('/', function () {
 
     if(isset($_GET['action']) && isset($_GET["id"])){
@@ -28,7 +29,7 @@ Route::get('/', function () {
     }
 
     $postCurrency =  new PostCurrencyController();
-    return $postCurrency->getCurrencyList();
+    return $postCurrency->getViewCurrencyList();
 });
 
 
@@ -37,5 +38,5 @@ Route::post('/', function () {
     \App\Models\Favourite::addCurrency($_POST["currancy"]);
 
     $postCurrency =  new PostCurrencyController();
-    return $postCurrency->getCurrencyList();
+    return $postCurrency->getViewCurrencyList();
 });
